@@ -24,33 +24,36 @@ export default function AddProduct()
            
         }
         setProduct([...products,newProduct]);
+        formData.current.product_name.value="";
+        formData.current.category.value="";
+        formData.current.price.value="";
         //console.log(products); 
     }
 
     //delete products
     const handledelete = (productId)=>{
-    const copyArray=[...products];
-    //console.log(productId.target.value);
-    const index=productId.target.value;
-    //console.log(index);
-    copyArray.splice(index,1);
-    //console.log(copyArray);
-    setProduct(copyArray);
-    };
+                                    const copyArray=[...products];
+                                    //console.log(productId.target.value);
+                                    const index=productId.target.value;
+                                    //console.log(index);
+                                    copyArray.splice(index,1);
+                                    //console.log(copyArray);
+                                    setProduct(copyArray);
+                                    };
         
-     
-    const handleSearch=(searchTerm)=>{
-                                
-                                const searchTerm_lc=searchTerm.toLowerCase(); 
-                                console.log(searchTerm);
-                                const searchArray = products.filter((product) => product.category.toLowerCase().includes(searchTerm_lc));
-                                setProduct(searchArray);
-
+                                    
+    const handleSearch=(event)=>{                                    
+                                        event.preventDefault();
+                                        const searchTerm=event.target.value;
+                                        const searchTerm_lc=searchTerm.trim().toLowerCase(); 
+                                        console.log(searchTerm);
+                                        const searchArray = products.filter((product) => product.category.toLowerCase().includes(searchTerm_lc));
+                                        setProduct(searchArray);
                                     }
     return(
             <div>
                 
-                <input type="text" placeholder="Search by Category:"  name="filter" onChange={(event) =>handleSearch(event.target.value)} />
+                <input type="text" placeholder="Search by Category:"  name="filter" onChange={(event) =>handleSearch(event)} />
                 <br></br><br></br>
                 
                 <Table striped bordered hover variant="dark" id="myTable">
